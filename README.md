@@ -1,6 +1,6 @@
 # 🎌 Anime Explorer App
 
-Anime Explorer is an Android application that fetches and displays popular and top-rated anime using the **Jikan API (Unofficial MyAnimeList API)**.  
+Anime Explorer is an Android application that fetches and displays popular and top-rated anime using the **Jikan API**.  
 The app is built with a clean **MVVM architecture**, supports **offline usage**, and handles network and data errors gracefully.
 
 ---
