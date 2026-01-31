@@ -1,7 +1,5 @@
 # 🎌 Anime Explorer App
 
-**Company Assignment – Seekho**
-
 Anime Explorer is an Android application that fetches and displays popular and top-rated anime using the **Jikan API (Unofficial MyAnimeList API)**.  
 The app is built with a clean **MVVM architecture**, supports **offline usage**, and handles network and data errors gracefully.
 
@@ -32,14 +30,8 @@ To build a simple yet robust Android application that:
 ### Top Anime List
 GET https://api.jikan.moe/v4/top/anime
 
-shell
-Copy code
-
 ### Anime Details
 GET https://api.jikan.moe/v4/anime/{anime_id}
-
-yaml
-Copy code
 
 ---
 
@@ -116,9 +108,6 @@ Data Sources
 ├─ Remote (Retrofit)
 └─ Local (Room)
 
-yaml
-Copy code
-
 ### Benefits
 - Clear separation of concerns
 - Lifecycle-aware components
@@ -164,28 +153,3 @@ Copy code
 - Improved error retry strategy
 - Unit and UI testing
 - Dark mode enhancements
-
----
-
-## ⏱ Time Estimate
-
-- Core functionality: **4–8 hours**
-- Offline support & enhancements: **Bonus**
-
----
-
-## 📦 Deliverables
-
-- Full Android source code
-- Well-documented README
-- APK (optional)
-
----
-
-## ✅ Conclusion
-
-This project demonstrates:
-- Strong Android fundamentals
-- Clean and maintainable architecture
-- Offline-first design approach
-- Robust error handling and UI adaptability
