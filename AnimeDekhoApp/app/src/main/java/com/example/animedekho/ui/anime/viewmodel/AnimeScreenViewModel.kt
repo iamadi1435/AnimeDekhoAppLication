@@ -19,7 +19,7 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-class AnimeScreenViewModel(
+class AnimeScreenViewModel (
     private val topAnimeListUseCase: TopAnimeListUseCase
 ) : ViewModel() {
 

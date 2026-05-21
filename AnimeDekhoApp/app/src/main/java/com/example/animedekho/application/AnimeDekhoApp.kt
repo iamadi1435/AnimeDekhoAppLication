@@ -1,28 +1,21 @@
 package com.example.animedekho.application
 
 import android.app.Application
-import androidx.room.Room
-import com.example.animedekho.data.local.AnimeDatabase
-import com.example.animedekho.data.remote.NetworkHelper
-import com.example.animedekho.data.repository.TopAnimeListRepositoryImplementation
+import com.example.animedekho.di.ApplicationComponent
+import com.example.animedekho.di.ApplicationModule
+import com.example.animedekho.di.DaggerApplicationComponent
 
 
 class AnimeDekhoApp : Application() {
-    lateinit var repository: TopAnimeListRepositoryImplementation
-        private set
+    lateinit var applicationComponent: ApplicationComponent
 
     override fun onCreate() {
         super.onCreate()
 
-        val db = Room.databaseBuilder(
-            this,
-            AnimeDatabase::class.java,
-            "anime_db"
-        ).build()
+        applicationComponent = DaggerApplicationComponent.builder()
+            .applicationModule(ApplicationModule(this))  // ← pass Application here
+            .build()
 
-        repository = TopAnimeListRepositoryImplementation(
-            db.animeDao(),
-            NetworkHelper(this)
-        )
+        applicationComponent.injectToApplicationClass(this)
     }
 }

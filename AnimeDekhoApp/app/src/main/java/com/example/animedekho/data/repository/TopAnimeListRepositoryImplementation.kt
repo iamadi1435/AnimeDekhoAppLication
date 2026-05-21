@@ -5,21 +5,24 @@ import com.example.animedekho.data.mapper.mapToAnimeDetails
 import com.example.animedekho.data.mapper.mapToTopAnimeList
 import com.example.animedekho.data.mapper.toDomain
 import com.example.animedekho.data.mapper.toEntity
+import com.example.animedekho.data.remote.ApiService
 import com.example.animedekho.data.remote.NetworkHelper
-import com.example.animedekho.data.remote.RetrofitInstance
+import com.example.animedekho.di.ActivityScope
 import com.example.animedekho.domain.entity.AnimeBasicDetails
 import com.example.animedekho.domain.entity.AnimeDetails
 import com.example.animedekho.domain.repository.TopAnimeListRepository
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.filterNotNull
-import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.flowOn
 import kotlinx.coroutines.flow.map
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class TopAnimeListRepositoryImplementation(
+
+@Singleton
+class TopAnimeListRepositoryImplementation @Inject constructor(
     private val dao: AnimeDao,
-    private val networkHelper: NetworkHelper
+    private val networkHelper: NetworkHelper,
+    private val apiService: ApiService
 ) : TopAnimeListRepository {
     override fun getTopAnimeList(): Flow<List<AnimeBasicDetails>> =
         dao.getTopAnimeList()
@@ -32,14 +35,14 @@ class TopAnimeListRepositoryImplementation(
     suspend fun refreshTopAnime() {
         if (!networkHelper.isNetworkConnected()) return
 
-        val response = RetrofitInstance.api.getTopAnimeList()
+        val response = apiService.getTopAnimeList()
         val mapped = mapToTopAnimeList(response)
         dao.insertTopAnime(mapped.map { it.toEntity() })
     }
     suspend fun refreshAnimeDetails(animeId: Int) {
         if (!networkHelper.isNetworkConnected()) return
 
-        val response = RetrofitInstance.api.getAnimeDetails(animeId)
+        val response = apiService.getAnimeDetails(animeId)
         val mapped = mapToAnimeDetails(response)
         dao.insertAnimeDetails(mapped.toEntity())
     }

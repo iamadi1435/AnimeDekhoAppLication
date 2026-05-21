@@ -40,6 +40,14 @@ android {
             excludes += "META-INF/versions/**"
         }
     }
+    applicationVariants.all {
+        val variantName = name
+        sourceSets {
+            getByName("main") {
+                java.srcDir(File("build/generated/ksp/$variantName/kotlin"))
+            }
+        }
+    }
 }
 kotlin {
     compilerOptions {
@@ -49,6 +57,8 @@ kotlin {
 
 
 dependencies {
+    implementation("com.google.dagger:dagger:2.59.2")          // ← Runtime APIs
+    ksp("com.google.dagger:dagger-compiler:2.59.2")            // ← Code generator
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
